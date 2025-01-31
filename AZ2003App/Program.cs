@@ -28,7 +28,14 @@ app.MapGet("/", async () =>
     }
 
     // Return a response showing both IPs
-    return $"Hello from .NET!\nLocal IP: {localIp}\nPublic IP: {wanIp}";
+    var ipList = "";
+
+    foreach (var ip in hostEntry.AddressList) 
+    {
+        ipList += ip + "\n";
+    } 
+
+    return $"Hello from .NET!\nLocal IP: {localIp}\nPublic IP: {wanIp}\n Other IPs: {ipList}";
 });
 
 app.Run();
