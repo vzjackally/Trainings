@@ -38,7 +38,7 @@ jobs:
           docker build \
             -t ghcr.io/${{ github.actor }}/trainings:latest \
             -f AZ2003App/Dockerfile \
-            
+            .
 
       # 5) Push to GHCR
       - name: Push Docker image
