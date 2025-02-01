@@ -35,7 +35,7 @@ app.MapGet("/", async () =>
     .ToList()
     .ForEach(ip => ipList += ip + "\n ");
 
-    return $"Hello from .NET!\nLocal IP: {localIp}\nPublic IP: {wanIp}\nOther IPs:\n {ipList}";
+    return $"Hello from .NET!!!\nLocal IP: {localIp}\nPublic IP: {wanIp}\nOther IPs:\n {ipList}";
 });
 
 app.Run();
