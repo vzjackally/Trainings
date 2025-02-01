@@ -44,3 +44,25 @@ jobs:
       - name: Push Docker image
         run: |
           docker push ghcr.io/${{ github.actor }}/trainings:latest
+  
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v3
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Install Container Apps extension
+        run: |
+          az extension add --name containerapp --yes --upgrade
+
+      - name: Update Container App
+        run: |
+          az containerapp update \
+            --name aca-az2003 \
+            --resource-group aca-dev-rg \
+            --image ghcr.io/vzjackally/trainings:latest          
