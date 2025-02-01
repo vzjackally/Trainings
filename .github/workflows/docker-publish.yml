@@ -4,6 +4,10 @@ on:
   push:
     branches: [ "main" ]  # or any branch you prefer
 
+permissions:
+  contents: read
+  packages: write  # <--- Add this line to allow pushing to GHCR
+  
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
