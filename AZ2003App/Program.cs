@@ -30,12 +30,12 @@ app.MapGet("/", async () =>
     // Return a response showing both IPs
     var ipList = "";
 
-    foreach (var ip in hostEntry.AddressList) 
-    {
-        ipList += ip + "\n";
-    } 
+    hostEntry.AddressList
+    .Where(ip => ip.AddressFamily == AddressFamily.InterNetwork)
+    .ToList()
+    .ForEach(ip => ipList += ip + "\n ");
 
-    return $"Hello from .NET!\nLocal IP: {localIp}\nPublic IP: {wanIp}\n Other IPs: {ipList}";
+    return $"Hello from .NET!\nLocal IP: {localIp}\nPublic IP: {wanIp}\nOther IPs:\n {ipList}";
 });
 
 app.Run();
