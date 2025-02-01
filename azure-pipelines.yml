@@ -1,0 +1,24 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  name: default
+
+steps:
+- task: AzureContainerApps@1
+  inputs:
+    azureSubscription: 'uai-az2003'
+    appSourcePath: '$(System.DefaultWorkingDirectory)'
+    acrName: 'acraz2003Jan31'
+    acrUsername: 'acraz2003Jan31'
+    acrPassword: '$(ACR_PASSWORD)'
+    imageToBuild: 'acraz2003jan31.azurecr.io/trainings:latest'
+    imageToDeploy: 'acraz2003jan31.azurecr.io/trainings:latest'
+    dockerfilePath: 'AZ2003App/Dockerfile'
+    containerAppName: 'aca-az2003'
+    resourceGroup: 'aca-dev-rg'
