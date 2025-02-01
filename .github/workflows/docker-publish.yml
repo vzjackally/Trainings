@@ -44,15 +44,9 @@ jobs:
       - name: Push Docker image
         run: |
           docker push ghcr.io/${{ github.actor }}/trainings:latest
-  
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repo
-        uses: actions/checkout@v3
 
       - name: Azure Login
-        uses: azure/login@v1
+      - uses: azure/login@v2
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
