@@ -28,14 +28,23 @@ app.MapGet("/", async () =>
     }
 
     // Return a response showing both IPs
-    var ipList = "";
+    var ipListBuilder = new System.Text.StringBuilder();
+
+    if (hostEntry?.AddressList == null)
+        return "No IP addresses found";
 
     hostEntry.AddressList
-    .Where(ip => ip.AddressFamily == AddressFamily.InterNetwork)
-    .ToList()
-    .ForEach(ip => ipList += ip + "\n ");
+        .Where(ip => ip.AddressFamily == AddressFamily.InterNetwork)
+        .ToList()
+        .ForEach(ip => ipListBuilder.AppendLine(ip.ToString()));
 
-    return $"Hello from .NET!!!!!\nLocal IP: {localIp}\nPublic IP: {wanIp}\nOther IPs:\n {ipList}";
+    return $"""
+    Hello from .NET!!!!!
+    Local IP: {localIp}
+    Public IP: {wanIp}
+    Other IPs:
+    {ipListBuilder}
+    """;
 });
 
 app.Run();
